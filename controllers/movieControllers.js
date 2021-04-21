@@ -28,6 +28,7 @@ module.exports.createMovie = async (req, res) => {
 module.exports.getMovies = async (req, res) => {
     try {
         const movies = await Movie.find({});
+        movies.reverse();
         res.status(200).json({
             error: false,
             data: {
