@@ -2,7 +2,7 @@ const express = require('express');
 const cors = require('cors');
 const mongoose = require('mongoose');
 const movieRoutes = require('./routes/movieRoutes');
-const { dbUrl, port } = require('./config')
+const { dbUrl, port, allowedOrigin } = require('./config')
 
 const app = express();
 
@@ -18,7 +18,7 @@ mongoose.connect(dbUrl, {
 });
 
 const allowedOrigins = [
-    process.env.ALLOWED_ORIGIN || 'http://localhost:3000',
+    allowedOrigin,
 ]
 
 app.use(cors({
