@@ -1,6 +1,6 @@
 const mongoose = require('mongoose');
-const validator = require('validator');
 
+// create schema for the movie collection in the database
 const movieSchema = new mongoose.Schema({
     title: {
         type: String,
@@ -32,7 +32,8 @@ const movieSchema = new mongoose.Schema({
     }
 });
 
-
+// add a "comment" method to the movieSchema, 
+// basically the function fired to comment on a movie
 movieSchema.statics.comment = async function (id, comment) {
     const movie = await Movie.findById(id);
     if (movie) {
@@ -48,6 +49,7 @@ movieSchema.statics.comment = async function (id, comment) {
     }
 }
 
+// add a "rate" method to the movieSchema
 movieSchema.statics.rate = async function (id, rating) {
     const movie = await Movie.findById(id);
     if (movie) {
@@ -65,6 +67,8 @@ movieSchema.statics.rate = async function (id, rating) {
     }
 }
 
+// create Movie model from the movieSchema
 const Movie = mongoose.model("movie", movieSchema);
 
+// export the model for use in controllers
 module.exports = Movie;

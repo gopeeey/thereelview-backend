@@ -1,5 +1,7 @@
+// require Movie model
 const Movie = require('../models/movies');
 
+// an abstraction to return a movie as a response to a user's request
 const returnMovie = (res, movie) => {
     res.status(200).json({
         error: false,
@@ -9,6 +11,7 @@ const returnMovie = (res, movie) => {
     });
 }
 
+// another abstraction to give a response when the requested movie is not found
 const return404 = (res) => {
     res.status(404).json({
         error: true,
@@ -16,6 +19,8 @@ const return404 = (res) => {
     })
 }
 
+// controller that handles movie creation
+// fires when /movies/create is visited
 module.exports.createMovie = async (req, res) => {
     try {
         const newMovie = await Movie.create(req.body);
@@ -25,6 +30,8 @@ module.exports.createMovie = async (req, res) => {
     }
 }
 
+// controller that fetches all movies in the database
+// fires at /movies/getall
 module.exports.getMovies = async (req, res) => {
     try {
         const movies = await Movie.find({});
@@ -44,6 +51,8 @@ module.exports.getMovies = async (req, res) => {
 }
 
 
+// gets a specific movie by id
+// fires at /movies/get
 module.exports.getMovie = async (req, res) => {
     const { id } = req.body;
     try {
@@ -54,7 +63,9 @@ module.exports.getMovie = async (req, res) => {
     }
 }
 
-
+// controller that handles commenting on a movie
+// uses the Movie.comment method created in the model.js file
+// fires at /movies/comment
 module.exports.commentOnMovie = async (req, res) => {
     const { id, comment } = req.body;
     try {
@@ -65,6 +76,9 @@ module.exports.commentOnMovie = async (req, res) => {
     }
 }
 
+// controller that handles rating a movie
+// uses the Movie.rate method created in the model.js file
+// fires at /movies/rate
 module.exports.rateMovie = async (req, res) => {
     const { id, rating } = req.body;
     try {
